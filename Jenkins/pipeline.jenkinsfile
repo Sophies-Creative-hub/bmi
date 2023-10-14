@@ -3,21 +3,20 @@ pipeline {
     stages {
         stage('Clean Workspace') {
             steps {
-                deleteDir()
+                deleteDir() // Dieser Schritt bereinigt den Workspace
             }
         }
-        stage('Prüfe Node.js') {
+        stage('Installieren') {
             steps {
-                sh 'node -v'
-            }
-        }
-        stage('Install Cypress') {
-            steps {
-                script {
-                    // Installiere Cypress und führe andere Installationsaufgaben aus
-                    sh 'npm install'
-                    sh 'npx cypress install'
-                }
+                // Installiere Node.js
+                sh '''
+                    curl -sL https://deb.nodesource.com/setup_18.x | bash -
+                    apt-get update
+                    apt-get install -y nodejs
+                '''
+                // Installiere die erforderlichen Pakete
+                sh 'npm install'
+                sh 'npx cypress install'
             }
         }
         stage('Cypress-Tests') {
