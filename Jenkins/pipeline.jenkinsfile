@@ -4,11 +4,7 @@ pipeline {
         NODE_VERSION = '14' // Setze hier deine gewünschte Node.js-Version ein
     }
     stages {
-        stage('Clean Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
+        
         stage('Installieren') {
             steps {
                 script {
