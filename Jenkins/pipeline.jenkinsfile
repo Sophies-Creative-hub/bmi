@@ -1,42 +1,26 @@
 pipeline {
     agent any
-    environment {
-        NODE_VERSION = '18' // Setze hier deine gewünschte Node.js-Version ein
-    }
     stages {
-        stage('Clean Workspace') {
+        stage('Checkout') {
             steps {
-                deleteDir()
+                // Das Projekt-Repository aus Git abrufen
+                git url: 'https://github.com/dein-benutzer/dein-projekt.git'
             }
         }
         stage('Installieren') {
             steps {
-                script {
-                    def nvmCommand = """
-                        export NVM_DIR=\$HOME/.nvm
-                        [ -s "\$NVM_DIR/nvm.sh" ] && \\. "\$NVM_DIR/nvm.sh" 
-                        nvm install \${NODE_VERSION}
-                        nvm use \${NODE_VERSION}
-                        npm install
-                        npx cypress install
-                    """
-                    sh script: nvmCommand, returnStatus: true
-                }
+                // Node.js und npm installieren
+                sh 'curl -sL https://deb.nodesource.com/setup_18.x | bash -'
+                sh 'apt-get install -y nodejs'
+                sh 'npm install'
+                sh 'npx cypress install'
             }
         }
         stage('Cypress-Tests') {
             steps {
-                script {
-                    def customPath = tool name: 'NodeJS', type: 'ToolType' // Hier den richtigen Werkzeugtyp und Namen angeben
-                    def npmCommand = """
-                        export PATH=\$PATH:\$HOME/.nvm/versions/node/\${customPath}/bin
-                        npm test
-                        """
-                    sh script: npmCommand, returnStatus: true
-                }
+                sh 'npm test' // Führe Cypress-Tests aus
             }
         }
-
         stage('Aufzeichnen der Cypress-Testergebnisse') {
             steps {
                 sh 'npx cypress run --record --key <CYPRESS_RECORD_KEY>'
