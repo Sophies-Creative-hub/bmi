@@ -3,16 +3,25 @@ pipeline {
     stages {
         stage('Clean Workspace') {
             steps {
-                deleteDir() // Dieser Schritt bereinigt den Workspace
+                deleteDir()
             }
         }
-        stage('Installieren') {
+        stage('Install Node.js') {
             steps {
-                // Node.js und npm installieren
-                sh 'curl -sL https://deb.nodesource.com/setup_18.x | bash -'
-                sh 'apt-get install -y nodejs'
-                sh 'npm install'
-                sh 'npx cypress install'
+                script {
+                    // Manuelle Installation von Node.js (und npm) auf einem Debian- oder Ubuntu-System
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install -y nodejs'
+                }
+            }
+        }
+        stage('Install Cypress') {
+            steps {
+                script {
+                    // Installiere Cypress und führe andere Installationsaufgaben aus
+                    sh 'npm install'
+                    sh 'npx cypress install'
+                }
             }
         }
         stage('Cypress-Tests') {
