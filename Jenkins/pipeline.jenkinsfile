@@ -6,13 +6,9 @@ pipeline {
                 deleteDir()
             }
         }
-        stage('Install Node.js') {
+        stage('Prüfe Node.js') {
             steps {
-                script {
-                    // Manuelle Installation von Node.js (und npm) auf einem Debian- oder Ubuntu-System
-                    sh 'sudo apt-get update'
-                    sh 'sudo apt-get install -y nodejs'
-                }
+                sh 'node -v'
             }
         }
         stage('Install Cypress') {
