@@ -1,25 +1,32 @@
 pipeline {
     agent any
+    environment {
+        NODE_VERSION = '18' // Setze hier deine gewünschte Node.js-Version ein
+    }
     stages {
         stage('Clean Workspace') {
             steps {
-                deleteDir() // Dieser Schritt bereinigt den Workspace
+                deleteDir()
             }
         }
         stage('Installieren') {
             steps {
-                // Manuelle Installation von Node.js und npm
-                sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash'
-                sh 'source ~/.nvm/nvm.sh' // Lade nvm
-                sh 'nvm install 18' // Installiere Node.js Version 14
-                sh 'nvm use 18' // Verwende Node.js Version 14
-                sh 'npm install' // Installiere die erforderlichen Pakete
-                sh 'npx cypress install' // Installiere Cypress
+                script {
+                    def nvmCommand = """
+                        export NVM_DIR=\$HOME/.nvm
+                        [ -s "\$NVM_DIR/nvm.sh" ] && \\. "\$NVM_DIR/nvm.sh" 
+                        nvm install \${NODE_VERSION}
+                        nvm use \${NODE_VERSION}
+                        npm install
+                        npx cypress install
+                    """
+                    sh script: nvmCommand, returnStatus: true
+                }
             }
         }
         stage('Cypress-Tests') {
             steps {
-                sh 'npm test' // Führe Cypress-Tests aus
+                sh 'npm test'
             }
         }
         stage('Aufzeichnen der Cypress-Testergebnisse') {
