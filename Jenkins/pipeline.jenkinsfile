@@ -11,8 +11,8 @@ pipeline {
                 // Manuelle Installation von Node.js und npm
                 sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash'
                 sh 'source ~/.nvm/nvm.sh' // Lade nvm
-                sh 'nvm install 14' // Installiere Node.js Version 14
-                sh 'nvm use 14' // Verwende Node.js Version 14
+                sh 'nvm install 18' // Installiere Node.js Version 14
+                sh 'nvm use 18' // Verwende Node.js Version 14
                 sh 'npm install' // Installiere die erforderlichen Pakete
                 sh 'npx cypress install' // Installiere Cypress
             }
