@@ -1,10 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
+        stages {
+        stage('Clean Workspace') {
             steps {
-                // Das Projekt-Repository aus Git abrufen
-                git url: 'https://github.com/dein-benutzer/dein-projekt.git'
+                deleteDir() // Dieser Schritt bereinigt den Workspace
             }
         }
         stage('Installieren') {
