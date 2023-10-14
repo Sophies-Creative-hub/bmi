@@ -1,28 +1,18 @@
 pipeline {
     agent any
-    environment {
-        NODE_VERSION = '14' // Setze hier deine gewünschte Node.js-Version ein
-    }
     stages {
-        
         stage('Installieren') {
             steps {
-                script {
-                    def nvmCommand = """
-                        export NVM_DIR=\$HOME/.nvm
-                        [ -s "\$NVM_DIR/nvm.sh" ] && \\. "\$NVM_DIR/nvm.sh" 
-                        nvm install \${NODE_VERSION}
-                        nvm use \${NODE_VERSION}
-                        npm install
-                        npx cypress install
-                    """
-                    sh script: nvmCommand, returnStatus: true
-                }
+                // Node.js und npm installieren
+                sh 'curl -sL https://deb.nodesource.com/setup_18.x | bash -'
+                sh 'apt-get install -y nodejs'
+                sh 'npm install'
+                sh 'npx cypress install'
             }
         }
         stage('Cypress-Tests') {
             steps {
-                sh 'npm test'
+                sh 'npm test' // Führe Cypress-Tests aus
             }
         }
         stage('Aufzeichnen der Cypress-Testergebnisse') {
