@@ -26,9 +26,17 @@ pipeline {
         }
         stage('Cypress-Tests') {
             steps {
-                sh 'npm test'
+                script {
+                    def customPath = tool name: 'NodeJS', type: 'ToolType' // Hier den richtigen Werkzeugtyp und Namen angeben
+                    def npmCommand = """
+                        export PATH=\$PATH:\$HOME/.nvm/versions/node/\${customPath}/bin
+                        npm test
+                        """
+                    sh script: npmCommand, returnStatus: true
+                }
             }
         }
+
         stage('Aufzeichnen der Cypress-Testergebnisse') {
             steps {
                 sh 'npx cypress run --record --key <CYPRESS_RECORD_KEY>'
