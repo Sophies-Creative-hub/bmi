@@ -7,7 +7,7 @@
     "scripts": {
         "start": "nodemon backend/server.js",
         "test": "cypress run --headless",
-        "test:e2e": "cypress run",
+        "test:e2e": "npx cypress run",
         "start-prod": "node backend/server.js"
     },
     "dependencies": {
