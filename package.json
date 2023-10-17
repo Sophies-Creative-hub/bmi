@@ -8,7 +8,8 @@
         "start": "nodemon backend/server.js",
         "test": "cypress run --headless",
         "test:e2e": "cypress run --headless",
-        "start-prod": "node backend/server.js"
+        "start-prod": "node backend/server.js",
+        "build": "webpack --mode production"
     },
     "dependencies": {
         "express": "^4.18.2"
