@@ -15,8 +15,6 @@ Nun kannst du folgende Befehle auf deinem Terminal ausführen:
 - `npx cypress install`: um Cypress zu installieren
 - `npm test`: um Cypress zu starten und deine Tests auszuführen
 
-Die Übung funktioniert entweder lokal unter Windows oder in einem `dev container` (also z.B. in einem GitHub Codespace)
-
 Viel Spaß beim TDD-Üben!
 
 ## Vorgehensweise

@@ -1,7 +1,9 @@
-const PORT = process.env.PORT || 5500;
 
-describe('BMI Calculator', function () {
-    it('successfully loads', function () {
-        cy.visit(`http://localhost:${PORT}`) // ändern Sie URL zu Ihrer App
-    })
-})
+
+describe('BMI Rechner', () => {
+    it('zeigt den Titel "BMI Rechner" an', () => {
+      cy.contains('BMI Rechner').should('be.visible');
+    });
+  
+  });
+  
