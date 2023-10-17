@@ -1,4 +1,4 @@
-name: BMI
+name: Cypress Tests
 
 on:
   push:
@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Wähle die gewünschte Node.js-Version
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14' # Wähle die passende Node.js-Version
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install Dependencies
+      run: npm install
 
-      - name: Build
-        run: npm run build
+    - name: Start Local Server
+      run: npm start
 
-      - name: Run Jest tests
-        run: npm test  # Führe Jest-Tests aus
+    - name: Run Cypress Tests
+      run: npx cypress run
 
   
