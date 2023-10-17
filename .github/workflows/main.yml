@@ -1,4 +1,4 @@
-name: BMI Calculator TDD
+name: BMI
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  tdd:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,22 +16,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '14'  # Wähle die gewünschte Node.js-Version
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
-
-      - name: Start Local Server
-        run: npm start
-
-      - name: Run Tests
-        run: npm test
-        # This step runs Jest tests to check if the code meets the defined test cases
-
-      - name: Code Linting (with Fix)
-        run: npm run eslint -- --fix
-        # This step attempts to automatically fix fixable linting errors
 
       - name: Build
         run: npm run build
-        # Add this step to build your code if needed
+
+      - name: Run Jest tests
+        run: npm test  # Führe Jest-Tests aus
+
+  
