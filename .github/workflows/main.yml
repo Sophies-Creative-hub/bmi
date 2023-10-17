@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: End-to-End Tests
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  start-server:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,22 +24,9 @@ jobs:
       - name: Start Local Server
         run: npm start
 
-  run-tests:
-    runs-on: ubuntu-latest
-
-    needs: start-server # Dieser Job wartet auf das Ende des 'start-server'-Jobs
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: e2e tests
+        uses: cypress-io/github-action@v5
         with:
-          node-version: '14' # Wähle die passende Node.js-Version
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Cypress Tests
-        run: npx cypress run
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:5000
