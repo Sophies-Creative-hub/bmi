@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  e2e-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,11 +21,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build
-
       - name: e2e tests
         uses: cypress-io/github-action@v5
         with:
-          command: npm run test
-          wait-on: http://localhost:5500
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:5000
