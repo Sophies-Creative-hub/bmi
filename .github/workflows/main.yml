@@ -1,0 +1,34 @@
+name: BMI Calculator TDD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tdd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+        # This step runs Jest tests to check if the code meets the defined test cases
+
+      - name: Code Linting (with Fix)
+        run: npm run eslint -- --fix
+        # This step attempts to automatically fix fixable linting errors
+
+      - name: Build
+        run: npm run build
+        # Add this step to build your code if needed
