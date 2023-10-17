@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '14' # Wähle die passende Node.js-Version
 
@@ -23,7 +23,9 @@ jobs:
 
       - name: e2e tests
         uses: cypress-io/github-action@v5
+        timeout-minutes: 10
         with:
+          browser: chrome
           command: npm run test:e2e
           start: npm run start-prod
-          wait-on: http://localhost:5000
+          wait-on: 'http://localhost:5000'
