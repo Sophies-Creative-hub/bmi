@@ -28,3 +28,9 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: 'http://localhost:5500'
+
+      - name: Upload E2E Test Results as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: e2e-test-results
+          path: cypress/screenshots
