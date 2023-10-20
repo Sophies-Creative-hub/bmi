@@ -13,9 +13,6 @@ describe('BMI Rechner', () => {
     cy.get('#weight').type('70'); // Eingabe für Gewicht
     cy.get('#height').type('175'); // Eingabe für Größe
 
-    // Berechnung: Klicken auf die Schaltfläche zur Berechnung
-    cy.get('#calculate-button').click();
-
     // Warte auf das Ergebnis und Überprüfung
     cy.get('#result').should('be.visible');
 
