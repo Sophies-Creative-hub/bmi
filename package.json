@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "start": "nodemon backend/server.js",
-        "test": "cypress run --headless --reporter json --reporter-options json",
+        "test": "cypress run --headless",
         "test:e2e": "cypress run",
         "start-prod": "npm start"
     },
